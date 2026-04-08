@@ -16,37 +16,37 @@ public class RefugioAnimales {
 
                 //Registrar animal
                 case 1 -> {
-                    System.out.println("Opción en desarrollo");
+                    registrarAnimal();
                 }
                     
 
                 //Registrar especie
                 case 2 -> {
-                    System.out.println("Opción en desarrollo");
+                    registrarEspecie();
                 }
                     
 
                 //Marcar animal como adoptado
                 case 3 -> {
-                    System.out.println("Opción en desarrollo");
+                    marcarAnimal();
                 }
                     
 
                 //Mostrar animales disponibles  
                 case 4 -> {
-                    System.out.println("Opción en desarrollo");
+                    animalesDisponibles();
                 }
                     
 
                 //Mostrar animales adoptados
                 case 5 -> {
-                    System.out.println("Opción en desarrollo");
+                    animalesAdoptados();
                 }
                     
 
                 //Mostrar reporte general
                 case 6 -> {
-                    System.out.println("Opción en desarrollo");
+                    mostrarReporte();
                 }
                     
                 
@@ -85,31 +85,43 @@ public class RefugioAnimales {
     public static void registrarAnimal(){
         System.out.print("\033[H\033[2J"); 
         System.out.flush(); 
+
+        System.out.println("Opción en desarrollo");
     }
 
     public static void registrarEspecie(){
         System.out.print("\033[H\033[2J"); 
         System.out.flush(); 
+
+        System.out.println("Opción en desarrollo");
     }
 
     public static void marcarAnimal(){
         System.out.print("\033[H\033[2J"); 
         System.out.flush(); 
+
+        System.out.println("Opción en desarrollo");
     }
 
     public static void animalesDisponibles(){
         System.out.print("\033[H\033[2J"); 
         System.out.flush(); 
+
+        System.out.println("Opción en desarrollo");
     }
 
     public static void animalesAdoptados(){
         System.out.print("\033[H\033[2J"); 
         System.out.flush(); 
+
+        System.out.println("Opción en desarrollo");
     }
 
-    public static void mostrarrReporte(){
+    public static void mostrarReporte(){
         System.out.print("\033[H\033[2J"); 
         System.out.flush(); 
+
+        System.out.println("Opción en desarrollo");
     }
 
     public static void salir() {
