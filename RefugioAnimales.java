@@ -5,6 +5,19 @@ public class RefugioAnimales {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
        
+        String[] nombreAnimales = {
+        // Perros
+        "Rocky", "Luna", "Max",
+        // Gatos
+        "Mishi", "Pelusa", "Tom",
+        // Piedras
+        "Rocoso", "Piedrín", "Rocky",
+        // Aves
+        "Piolín", "Azulito", "Kiwi",
+        // Roedores
+        "Chispi", "Bolita", "Manchita"
+        };
+
         int opcion;
 
 
