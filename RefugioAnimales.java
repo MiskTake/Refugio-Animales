@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class RefugioAnimales {
@@ -5,6 +8,19 @@ public class RefugioAnimales {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
        
+        String[] nombreAnimales = {
+        // Perros
+        "Rocky", "Luna", "Max",
+        // Gatos
+        "Mishi", "Pelusa", "Tom",
+        // Piedras
+        "Rocoso", "Piedrín", "Rocky",
+        // Aves
+        "Piolín", "Azulito", "Kiwi",
+        // Roedores
+        "Chispi", "Bolita", "Manchita"
+        };
+
         int opcion;
 
 
