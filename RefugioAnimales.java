@@ -38,6 +38,7 @@ public class RefugioAnimales {
         do {
             mostrarMenu();
             opcion = scanner.nextInt();
+            scanner.nextLine(); //Limpiar buffer de scanner para evitar el salto de línea invisible luego de un nextInt()
 
             switch (opcion) {
 
