@@ -289,18 +289,54 @@ public class RefugioAnimales {
     contadores[2] = adoptados;
 }
 
-    public static void animalesDisponibles(){
-        System.out.print("\033[H\033[2J"); 
-        System.out.flush(); 
+    public static void animalesDisponibles() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("--- ANIMALES DISPONIBLES ---");
 
-        System.out.println("Opción en desarrollo");
+        boolean hayDisponible = false;  // faltaba el ; y el valor inicial
+
+        for (int i = 0; i < nombreAnimales.size(); i++) {  // faltaba el ; después del 0
+            String nombre = nombreAnimales.get(i);
+            String estado = estadoAnimal.get(nombre);  // la clave es nombre, no nombreAnimales
+
+            if (estado != null && estado.equals("Disponible")) {  // comparar con "Disponible" con D mayúscula
+                System.out.println("ID: " + i + " | Nombre: " + nombre);  // nombre, no nombreAnimales
+                hayDisponible = true;
+            }
+        }
+
+        if (!hayDisponible) {
+            System.out.println("No hay animales disponibles en este momento.");
+        }
+
+        System.out.println("\nPresione Enter para continuar...");
+        scanner.nextLine();
     }
 
-    public static void animalesAdoptados(){
-        System.out.print("\033[H\033[2J"); 
-        System.out.flush(); 
+    public static void animalesAdoptados() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        System.out.println("--- ANIMALES ADOPTADOS ---");
 
-        System.out.println("Opción en desarrollo");
+        boolean hayAdoptado = false;
+
+        for (int i = 0; i < nombreAnimales.size(); i++) {
+            String nombre = nombreAnimales.get(i);
+            String estado = estadoAnimal.get(nombre);
+
+            if (estado != null && estado.equals("Adoptado")) {
+                System.out.println("ID: " + i + " | Nombre: " + nombre);
+                hayAdoptado = true;
+            }
+        }
+
+        if (!hayAdoptado) {
+            System.out.println("Aún no hay animales adoptados.");
+        }
+
+        System.out.println("\nPresione Enter para continuar...");
+        scanner.nextLine();
     }
 
     public static void mostrarReporte(){
