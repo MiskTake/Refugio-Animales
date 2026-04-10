@@ -28,7 +28,7 @@ public class RefugioAnimales {
     public static String[] estados = {"Disponible","Adoptado"};
     public static Map<String, String> especieAnimal= new HashMap<>();
     public static Map<String, String> estadoAnimal = new HashMap<>();
-    
+    public static int[] contadores = new int[3];
     public static void main(String[] args) {
 
         int opcion;
@@ -270,6 +270,24 @@ public class RefugioAnimales {
     System.out.println("Presione Enter para volver al menú...");
     scanner.nextLine();
     }
+    public static void actualizarContadores() {
+    contadores[0] = nombreAnimales.size();
+    
+    int disponibles = 0;
+    int adoptados = 0;
+    
+    for (String animal : nombreAnimales) {
+        String estado = estadoAnimal.get(animal);
+        if (estado.equals("Disponible")) {
+            disponibles++;
+        } else if (estado.equals("Adoptado")) {
+            adoptados++;
+        }
+    }
+    
+    contadores[1] = disponibles;
+    contadores[2] = adoptados;
+}
 
     public static void animalesDisponibles(){
         System.out.print("\033[H\033[2J"); 
