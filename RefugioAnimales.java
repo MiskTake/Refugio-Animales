@@ -38,6 +38,7 @@ public class RefugioAnimales {
         do {
             mostrarMenu();
             opcion = scanner.nextInt();
+            scanner.nextLine(); //Limpiar buffer de scanner para evitar el salto de línea invisible luego de un nextInt()
 
             switch (opcion) {
 
@@ -97,7 +98,7 @@ public class RefugioAnimales {
         especies.add("Ave");
         especies.add("Roedor");
 
-        especieAnimal.put("Rocky", "Perro");
+        especieAnimal.put("Firulais", "Perro");
         especieAnimal.put("Luna", "Perro");
         especieAnimal.put("Max", "Perro");
         especieAnimal.put("Mishi", "Gato");
@@ -209,7 +210,48 @@ public class RefugioAnimales {
         System.out.print("\033[H\033[2J"); 
         System.out.flush(); 
 
-        System.out.println("Opción en desarrollo");
+        // === CONTADORES ===
+        int totalAnimales = nombreAnimales.size();
+
+        // Contar disponibles y adoptados iterando sobre los valores del mapa estadoAnimal
+        // No es necesario saber la key (es decir, los nombres de los animales), solo es importante saber los values
+        int totalDisponibles = 0;
+        int totalAdoptados = 0;
+
+        for (String estado : estadoAnimal.values()) {
+            if (estado.equals("Disponible")) {
+                totalDisponibles++;
+            } else if (estado.equals("Adoptado")) {
+                totalAdoptados++;
+            }
+        }
+
+        // === REPORTE ===
+        System.out.println("╔════════════════════════════════════════════════╗");
+        System.out.println("║           === REPORTE GENERAL ===              ║");
+        System.out.println("╠════════════════════════════════════════════════╣");
+        // printf permite formatear el texto con ancho fijo para alinear las columnas (sintaxis: %-25d para numero y %-25s para string)
+        System.out.printf( "║  Total de animales  : %-25d║%n", totalAnimales);
+        System.out.printf( "║  Total disponibles  : %-25d║%n", totalDisponibles);
+        System.out.printf( "║  Total adoptados    : %-25d║%n", totalAdoptados);
+
+        // === TABLA DE ANIMALES ===
+        System.out.println("╠═══════════════╪═══════════════╪════════════════╣");
+        System.out.printf( "║  %-13s │ %-13s │ %-14s║%n", "Nombre", "Especie", "Estado");
+        System.out.println("╠═══════════════╪═══════════════╪════════════════╣");
+
+        for (String nombre : nombreAnimales) {
+            String especie = especieAnimal.getOrDefault(nombre, "Sin especie");
+            String estado  = estadoAnimal.getOrDefault(nombre, "Sin estado");
+            System.out.printf("║  %-13s │ %-13s │ %-14s║%n", nombre, especie, estado);
+        }
+
+        System.out.println("╚═══════════════╧═══════════════╧════════════════╝");
+
+        // === PAUSA ANTES DE VOLVER AL MENÚ ===
+        System.out.println();
+        System.out.println("Presione Enter para volver al menú principal...");
+        scanner.nextLine(); // Espera cualquier input del usuario antes de continuar para evitar mostrar el menú de una vez
     }
 
     public static void salir() {
