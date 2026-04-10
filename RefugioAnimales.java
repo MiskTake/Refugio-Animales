@@ -28,7 +28,7 @@ public class RefugioAnimales {
     public static String[] estados = {"Disponible","Adoptado"};
     public static Map<String, String> especieAnimal= new HashMap<>();
     public static Map<String, String> estadoAnimal = new HashMap<>();
-    
+    public static int[] contadores = new int[3];
     public static void main(String[] args) {
 
         int opcion;
@@ -225,11 +225,69 @@ public class RefugioAnimales {
 
 
     public static void marcarAnimal(){
-        System.out.print("\033[H\033[2J"); 
-        System.out.flush(); 
-
-        System.out.println("Opción en desarrollo");
+    System.out.print("\033[H\033[2J"); 
+    System.out.flush();
+    
+    System.out.println("=== MARCAR ANIMAL COMO ADOPTADO ===\n");
+    
+    List<String> disponibles = new ArrayList<>();
+    for (String animal : nombreAnimales) {
+        if (estadoAnimal.get(animal).equals("Disponible")) {
+            disponibles.add(animal);
+        }
     }
+    
+    if (disponibles.isEmpty()) {
+        System.out.println(" No hay animales disponibles para adoptar.");
+        System.out.println("\nPresione Enter para volver al menú...");
+        scanner.nextLine();
+        return;
+    }
+    System.out.println("Animales disponibles:");
+    for (int i = 0; i < disponibles.size(); i++) {
+        String animal = disponibles.get(i);
+        String especie = especieAnimal.get(animal);
+        System.out.println((i + 1) + ". " + animal + " (" + especie + ")");
+    }
+    
+    System.out.print("\nElige el número del animal a adoptar: ");
+    int seleccion = scanner.nextInt();
+    scanner.nextLine(); // limpiar buffer
+    
+    if (seleccion < 1 || seleccion > disponibles.size()) {
+        System.out.println(" Selección no válida.");
+        System.out.println("\nPresione Enter para volver al menú...");
+        scanner.nextLine();
+        return;
+    }
+    
+    String nombreAnimal = disponibles.get(seleccion - 1);
+    estadoAnimal.put(nombreAnimal, "Adoptado");
+    
+    actualizarContadores();
+    
+    System.out.println("\n ¡" + nombreAnimal + " ha sido adoptado!");
+    System.out.println("Presione Enter para volver al menú...");
+    scanner.nextLine();
+    }
+    public static void actualizarContadores() {
+    contadores[0] = nombreAnimales.size();
+    
+    int disponibles = 0;
+    int adoptados = 0;
+    
+    for (String animal : nombreAnimales) {
+        String estado = estadoAnimal.get(animal);
+        if (estado.equals("Disponible")) {
+            disponibles++;
+        } else if (estado.equals("Adoptado")) {
+            adoptados++;
+        }
+    }
+    
+    contadores[1] = disponibles;
+    contadores[2] = adoptados;
+}
 
     public static void animalesDisponibles() {
         System.out.print("\033[H\033[2J");
