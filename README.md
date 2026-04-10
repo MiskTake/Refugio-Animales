@@ -49,7 +49,7 @@ El sistema fue desarrollado como proyecto integrador para practicar el uso de co
 
 **1. Clonar el repositorio**
 ```bash
-git clone [https://github.com/<usuario>/refugio-animales.git](https://github.com/MiskTake/Refugio-Animales)
+git clone https://github.com/MiskTake/Refugio-Animales
 cd refugio-animales
 ```
 
