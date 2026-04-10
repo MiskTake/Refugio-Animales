@@ -19,7 +19,6 @@ El sistema fue desarrollado como proyecto integrador para practicar el uso de co
 | `Map<String, String>` | `estadoAnimal` | Relaciona cada animal con su estado (Disponible / Adoptado) |
 | `Map<String, String>` | `especieAnimal` | Relaciona cada animal con su especie |
 | `String[]` | `estados` | Array fijo con los estados posibles |
-| `int[]` | `contadores` | Array fijo con totales: animales, disponibles, adoptados |
 
 ---
 
