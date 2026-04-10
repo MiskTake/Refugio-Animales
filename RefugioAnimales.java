@@ -158,11 +158,31 @@ public class RefugioAnimales {
     }
 
     public static void registrarEspecie(){
-        System.out.print("\033[H\033[2J"); 
-        System.out.flush(); 
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
 
-        System.out.println("Opción en desarrollo");
+        int opcion;
+
+        System.out.println("Selecione una opcion: ");
+        System.out.println("1. Ver especies registradas");
+        System.out.println("2. Ingresar nueva especie");
+        System.out.println();
+
+        opcion = scanner.nextInt();
+        scanner.nextLine(); //Limpiar buffer de scanner
+        switch (opcion){
+
+            case 1 -> System.out.println(especie);
+
+            case 2 -> {
+                System.out.println("Ingrese especie nueva: ");
+                String nombreespecienueva = scanner.nextLine();
+                especie.add(nombreespecienueva);
+            }
+        }
+
     }
+
 
     public static void marcarAnimal(){
         System.out.print("\033[H\033[2J"); 
