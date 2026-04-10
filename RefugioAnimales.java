@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class RefugioAnimales {
     public static Scanner scanner = new Scanner(System.in);
@@ -24,14 +25,14 @@ public class RefugioAnimales {
 
     // Set de especies, no permite duplicados, no hay orden (en teoria?)
     public static Set<String> especies = new HashSet<>();
-
     public static String[] estados = {"Disponible","Adoptado"};
-    public static Map<String, String> especieAnimal;
-    public static Map<String, String> estadoAnimal;
+    public static Map<String, String> especieAnimal= new HashMap<>();
+    public static Map<String, String> estadoAnimal = new HashMap<>();
     
     public static void main(String[] args) {
 
         int opcion;
+        llenarDatos();
 
 
         do {
@@ -172,15 +173,14 @@ public class RefugioAnimales {
         scanner.nextLine(); //Limpiar buffer de scanner
         switch (opcion){
 
-            case 1 -> System.out.println(especie);
+            case 1 -> System.out.println(especies);
 
             case 2 -> {
                 System.out.println("Ingrese especie nueva: ");
                 String nombreespecienueva = scanner.nextLine();
-                especie.add(nombreespecienueva);
+                especies.add(nombreespecienueva);
             }
         }
-
     }
 
 
