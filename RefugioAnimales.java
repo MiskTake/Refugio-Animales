@@ -153,10 +153,49 @@ public class RefugioAnimales {
     }
 
     public static void registrarAnimal(){
-        System.out.print("\033[H\033[2J"); 
-        System.out.flush(); 
+        System.out.print("\033[H\033[2J");
+        System.out.flush(); // Limpia pantalla
 
-        System.out.println("Opción en desarrollo");
+        System.out.println("--- REGISTRAR NUEVO ANIMAL ---");
+
+        //Validación: ¿Existen especies para asignar?
+        if (especies.isEmpty()) {
+                System.out.println("ERROR: No puedes registrar animales si no hay especies creadas.");
+            return;
+        }
+
+        // Pedir y validar el nombre
+        System.out.print("Nombre del animal: ");
+        String nombre = scanner.nextLine().trim();
+
+        if (nombre.isEmpty()) {
+            System.out.println("ERROR: El nombre no puede estar vacío.");
+            return;
+        }
+
+        // Validar duplicados usando las llaves del mapa
+        if (especieAnimal.containsKey(nombre)) {
+            System.out.println("ERROR: Ya existe un animal llamado " + nombre);
+            return;
+        }
+
+        // Pedir y validar la especie
+        System.out.println("Especies disponibles: " + especies);
+        System.out.print("Especie: ");
+        String especie = scanner.nextLine().trim();
+
+        if (!especies.contains(especie)) {
+            System.out.print("ERROR: La especie '" + especie + "' no está registrada.");
+            return;
+        }
+
+        // GUARDAR EN LAS ESTRUCTURAS
+        // Relación nombre con su especie
+        especieAnimal.put(nombre, especie);
+
+        // Relación nombre con el estado inicial "Disponible"
+        estadoAnimal.put(nombre, estados[0]);
+        System.out.print("¡LISTO! " + nombre + " (" + especie + ") registrado correctamente");
     }
 
     public static void registrarEspecie(){
@@ -165,7 +204,7 @@ public class RefugioAnimales {
 
         int opcion;
 
-        System.out.println("Selecione una opcion: ");
+        System.out.println("Selecione una opción: ");
         System.out.println("1. Ver especies registradas");
         System.out.println("2. Ingresar nueva especie");
         System.out.println();
