@@ -231,18 +231,28 @@ public class RefugioAnimales {
         System.out.println("Opción en desarrollo");
     }
 
-    public static void animalesDisponibles(){
-        System.out.print("\033[H\033[2J"); 
-        System.out.flush(); 
+    public static void animalesDisponibles() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+        boolean hayDisponible = false
 
-        System.out.println("Opción en desarrollo");
+        for (int i = 0 < nombreAnimales.size(); i++) {
+            String nombre = nombreAnimales.get(i);
+            String estado = estadoAnimal.get(nombreAnimales);
+
+            if (estado.equals / ("disponible"))
+                System.out.println("ID" + i + " Nombre" + nombreAnimales);
+        }
+    }
+            if (!hayDisponible)
+                System.out.println("No hay animales disponibles");
     }
 
     public static void animalesAdoptados(){
         System.out.print("\033[H\033[2J"); 
         System.out.flush(); 
 
-        System.out.println("Opción en desarrollo");
+
     }
 
     public static void mostrarReporte(){
