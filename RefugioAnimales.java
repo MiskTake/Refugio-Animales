@@ -12,7 +12,7 @@ public class RefugioAnimales {
     //Se declaran variables globales para que se pueda acceder a ellas desde todas las funciones
     public static List <String> nombreAnimales = new ArrayList<>(Arrays.asList(
     // Perros
-    "Rocky", "Luna", "Max",
+    "Firulais", "Luna", "Max",
     // Gatos
     "Mishi", "Pelusa", "Tom",
     // Piedras
@@ -82,7 +82,7 @@ public class RefugioAnimales {
                 case 7 -> {
                     salir();
                 }
-
+                default -> System.out.println("Opción inválida. Elige entre 1 y 7.");
 
             }
         } while (opcion != 7);
@@ -114,7 +114,7 @@ public class RefugioAnimales {
         especieAnimal.put("Bolita", "Roedor");
         especieAnimal.put("Manchita", "Roedor");
 
-        estadoAnimal.put("Rocky", "Disponible");
+        estadoAnimal.put("Firulais", "Disponible");
         estadoAnimal.put("Luna", "Disponible");
         estadoAnimal.put("Max", "Disponible");
         estadoAnimal.put("Mishi", "Disponible");
@@ -133,8 +133,6 @@ public class RefugioAnimales {
     }
 
     public static void mostrarMenu(){
-        System.out.print("\033[H\033[2J"); 
-        System.out.flush();
 
         System.out.println("╔═════════════════════════════════════╗");
         System.out.println("║     === REFUGIO DE ANIMALES ===     ║");
@@ -153,14 +151,13 @@ public class RefugioAnimales {
     }
 
     public static void registrarAnimal(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush(); // Limpia pantalla
 
         System.out.println("--- REGISTRAR NUEVO ANIMAL ---");
 
         //Validación: ¿Existen especies para asignar?
         if (especies.isEmpty()) {
-                System.out.println("ERROR: No puedes registrar animales si no hay especies creadas.");
+            System.out.println("ERROR: No puedes registrar animales si no hay especies creadas.");
+            scanner.nextLine();
             return;
         }
 
@@ -170,12 +167,14 @@ public class RefugioAnimales {
 
         if (nombre.isEmpty()) {
             System.out.println("ERROR: El nombre no puede estar vacío.");
+            scanner.nextLine();
             return;
         }
 
         // Validar duplicados usando las llaves del mapa
         if (especieAnimal.containsKey(nombre)) {
             System.out.println("ERROR: Ya existe un animal llamado " + nombre);
+            scanner.nextLine();
             return;
         }
 
@@ -195,12 +194,13 @@ public class RefugioAnimales {
 
         // Relación nombre con el estado inicial "Disponible"
         estadoAnimal.put(nombre, estados[0]);
+        nombreAnimales.add(nombre);
         System.out.print("¡LISTO! " + nombre + " (" + especie + ") registrado correctamente");
+        System.out.println("\nPresione Enter para continuar...");
+        scanner.nextLine();
     }
 
     public static void registrarEspecie(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
 
         int opcion;
 
@@ -213,85 +213,99 @@ public class RefugioAnimales {
         scanner.nextLine(); //Limpiar buffer de scanner
         switch (opcion){
 
-            case 1 -> System.out.println(especies);
+            case 1 -> {
+                System.out.println(especies);
+                System.out.println("\nPresione Enter para continuar...");
+                scanner.nextLine();
+            }
 
             case 2 -> {
-                System.out.println("Ingrese especie nueva: ");
-                String nombreespecienueva = scanner.nextLine();
-                especies.add(nombreespecienueva);
+                System.out.print("Ingrese especie nueva: ");
+                String nuevaEspecie = scanner.nextLine().trim();
+                if (nuevaEspecie.isEmpty()) {
+                    System.out.println("ERROR: El nombre no puede estar vacío.");
+                } else if (especies.contains(nuevaEspecie)) {
+                    System.out.println("Esa especie ya existe.");  // el Set ignora el duplicado pero el usuario no sabe por qué
+                } else {
+                    especies.add(nuevaEspecie);
+                    System.out.println("Especie '" + nuevaEspecie + "' registrada.");
+                }
             }
+            default -> {
+                System.out.println("Opción inválida.");
+                System.out.println("\nPresione Enter para continuar...");
+                scanner.nextLine();
+            }           
         }
     }
-
 
     public static void marcarAnimal(){
-    System.out.print("\033[H\033[2J"); 
-    System.out.flush();
-    
-    System.out.println("=== MARCAR ANIMAL COMO ADOPTADO ===\n");
-    
-    List<String> disponibles = new ArrayList<>();
-    for (String animal : nombreAnimales) {
-        if (estadoAnimal.get(animal).equals("Disponible")) {
-            disponibles.add(animal);
+        
+        System.out.println("=== MARCAR ANIMAL COMO ADOPTADO ===\n");
+        
+        List<String> disponibles = new ArrayList<>();
+        for (String animal : nombreAnimales) {
+            if (estadoAnimal.get(animal).equals("Disponible")) {
+                disponibles.add(animal);
+            }
         }
-    }
-    
-    if (disponibles.isEmpty()) {
-        System.out.println(" No hay animales disponibles para adoptar.");
-        System.out.println("\nPresione Enter para volver al menú...");
+        
+        if (disponibles.isEmpty()) {
+            System.out.println(" No hay animales disponibles para adoptar.");
+            System.out.println("\nPresione Enter para volver al menú...");
+            scanner.nextLine();
+            return;
+        }
+        System.out.println("Animales disponibles:");
+        for (int i = 0; i < disponibles.size(); i++) {
+            String animal = disponibles.get(i);
+            String especie = especieAnimal.get(animal);
+            System.out.println((i + 1) + ". " + animal + " (" + especie + ")");
+        }
+        
+        System.out.print("\nElige el número del animal a adoptar: ");
+        int seleccion = scanner.nextInt();
+        scanner.nextLine(); // limpiar buffer
+        
+        if (seleccion < 1 || seleccion > disponibles.size()) {
+            System.out.println(" Selección no válida.");
+            System.out.println("\nPresione Enter para volver al menú...");
+            scanner.nextLine();
+            return;
+        }
+        
+        String nombreAnimal = disponibles.get(seleccion - 1);
+        estadoAnimal.put(nombreAnimal, "Adoptado");
+        
+        actualizarContadores();
+        
+        System.out.println("\n ¡" + nombreAnimal + " ha sido adoptado!");
+        System.out.println("Total de animales  : " + contadores[0]);
+        System.out.println("Disponibles        : " + contadores[1]);
+        System.out.println("Adoptados          : " + contadores[2]);
+        System.out.println("Presione Enter para volver al menú...");
         scanner.nextLine();
-        return;
-    }
-    System.out.println("Animales disponibles:");
-    for (int i = 0; i < disponibles.size(); i++) {
-        String animal = disponibles.get(i);
-        String especie = especieAnimal.get(animal);
-        System.out.println((i + 1) + ". " + animal + " (" + especie + ")");
-    }
-    
-    System.out.print("\nElige el número del animal a adoptar: ");
-    int seleccion = scanner.nextInt();
-    scanner.nextLine(); // limpiar buffer
-    
-    if (seleccion < 1 || seleccion > disponibles.size()) {
-        System.out.println(" Selección no válida.");
-        System.out.println("\nPresione Enter para volver al menú...");
-        scanner.nextLine();
-        return;
-    }
-    
-    String nombreAnimal = disponibles.get(seleccion - 1);
-    estadoAnimal.put(nombreAnimal, "Adoptado");
-    
-    actualizarContadores();
-    
-    System.out.println("\n ¡" + nombreAnimal + " ha sido adoptado!");
-    System.out.println("Presione Enter para volver al menú...");
-    scanner.nextLine();
-    }
+        }
     public static void actualizarContadores() {
-    contadores[0] = nombreAnimales.size();
-    
-    int disponibles = 0;
-    int adoptados = 0;
-    
-    for (String animal : nombreAnimales) {
-        String estado = estadoAnimal.get(animal);
-        if (estado.equals("Disponible")) {
-            disponibles++;
-        } else if (estado.equals("Adoptado")) {
-            adoptados++;
+        contadores[0] = nombreAnimales.size();
+        
+        int disponibles = 0;
+        int adoptados = 0;
+        
+        for (String animal : nombreAnimales) {
+            String estado = estadoAnimal.get(animal);
+            if (estado.equals("Disponible")) {
+                disponibles++;
+            } else if (estado.equals("Adoptado")) {
+                adoptados++;
+            }
         }
+        
+        contadores[1] = disponibles;
+        contadores[2] = adoptados;
     }
-    
-    contadores[1] = disponibles;
-    contadores[2] = adoptados;
-}
 
     public static void animalesDisponibles() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
         System.out.println("--- ANIMALES DISPONIBLES ---");
 
         boolean hayDisponible = false;  // faltaba el ; y el valor inicial
@@ -301,7 +315,7 @@ public class RefugioAnimales {
             String estado = estadoAnimal.get(nombre);  // la clave es nombre, no nombreAnimales
 
             if (estado != null && estado.equals("Disponible")) {  // comparar con "Disponible" con D mayúscula
-                System.out.println("ID: " + i + " | Nombre: " + nombre);  // nombre, no nombreAnimales
+                System.out.println("ID: " + i + " | " + nombre + " (" + especieAnimal.get(nombre) + ")");  // nombre, no nombreAnimales
                 hayDisponible = true;
             }
         }
@@ -315,8 +329,6 @@ public class RefugioAnimales {
     }
 
     public static void animalesAdoptados() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
         System.out.println("--- ANIMALES ADOPTADOS ---");
 
         boolean hayAdoptado = false;
@@ -326,7 +338,7 @@ public class RefugioAnimales {
             String estado = estadoAnimal.get(nombre);
 
             if (estado != null && estado.equals("Adoptado")) {
-                System.out.println("ID: " + i + " | Nombre: " + nombre);
+                System.out.println("ID: " + i + " | " + nombre + " (" + especieAnimal.get(nombre) + ")");
                 hayAdoptado = true;
             }
         }
@@ -340,9 +352,7 @@ public class RefugioAnimales {
     }
 
     public static void mostrarReporte(){
-        System.out.print("\033[H\033[2J"); 
-        System.out.flush(); 
-
+        actualizarContadores();
         // === CONTADORES ===
         int totalAnimales = nombreAnimales.size();
 
@@ -369,9 +379,9 @@ public class RefugioAnimales {
         System.out.printf( "║  Total adoptados    : %-25d║%n", totalAdoptados);
 
         // === TABLA DE ANIMALES ===
-        System.out.println("╠═══════════════╪═══════════════╪════════════════╣");
+        System.out.println("╠════════════════════════════════════════════════╣");
         System.out.printf( "║  %-13s │ %-13s │ %-14s║%n", "Nombre", "Especie", "Estado");
-        System.out.println("╠═══════════════╪═══════════════╪════════════════╣");
+        System.out.println("╠════════════════════════════════════════════════╣");
 
         for (String nombre : nombreAnimales) {
             String especie = especieAnimal.getOrDefault(nombre, "Sin especie");
@@ -379,7 +389,7 @@ public class RefugioAnimales {
             System.out.printf("║  %-13s │ %-13s │ %-14s║%n", nombre, especie, estado);
         }
 
-        System.out.println("╚═══════════════╧═══════════════╧════════════════╝");
+        System.out.println("╚════════════════════════════════════════════════╝");
 
         // === PAUSA ANTES DE VOLVER AL MENÚ ===
         System.out.println();
@@ -388,9 +398,7 @@ public class RefugioAnimales {
     }
 
     public static void salir() {
-        System.out.print("\033[H\033[2J"); 
-        System.out.flush();  
         System.out.println("\nGracias por venir");
         System.out.println("Saliendo...");
-    }
+    }  
 }
