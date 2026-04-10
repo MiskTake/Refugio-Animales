@@ -1,24 +1,35 @@
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RefugioAnimales {
+    public static Scanner scanner = new Scanner(System.in);
+    //Se declaran variables globales para que se pueda acceder a ellas desde todas las funciones
+    public static List <String> nombreAnimales = new ArrayList<>(Arrays.asList(
+    // Perros
+    "Rocky", "Luna", "Max",
+    // Gatos
+    "Mishi", "Pelusa", "Tom",
+    // Piedras
+    "Rocoso", "Piedrín", "Rocky",
+    // Aves
+    "Piolín", "Azulito", "Kiwi",
+    // Roedores
+    "Chispi", "Bolita", "Manchita"
+    ));
 
+    // Set de especies, no permite duplicados, no hay orden (en teoria?)
+    public static Set<String> especies = new HashSet<>();
+
+    public static String[] estados = {"Disponible","Adoptado"};
+    public static Map<String, String> especieAnimal;
+    public static Map<String, String> estadoAnimal;
+    
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-       
-        String[] nombreAnimales = {
-        // Perros
-        "Rocky", "Luna", "Max",
-        // Gatos
-        "Mishi", "Pelusa", "Tom",
-        // Piedras
-        "Rocoso", "Piedrín", "Rocky",
-        // Aves
-        "Piolín", "Azulito", "Kiwi",
-        // Roedores
-        "Chispi", "Bolita", "Manchita"
-        };
 
         int opcion;
 
@@ -75,6 +86,48 @@ public class RefugioAnimales {
         } while (opcion != 7);
 
         scanner.close();
+    }
+
+    public static void llenarDatos(){
+
+        especies.add("Perro");
+        especies.add("Gato");
+        especies.add("Piedra");
+        especies.add("Ave");
+        especies.add("Roedor");
+
+        especieAnimal.put("Rocky", "Perro");
+        especieAnimal.put("Luna", "Perro");
+        especieAnimal.put("Max", "Perro");
+        especieAnimal.put("Mishi", "Gato");
+        especieAnimal.put("Pelusa", "Gato");
+        especieAnimal.put("Tom", "Gato");
+        especieAnimal.put("Rocoso", "Piedra");
+        especieAnimal.put("Piedrín", "Piedra");
+        especieAnimal.put("Rocky", "Piedra");
+        especieAnimal.put("Piolín", "Ave");
+        especieAnimal.put("Azulito", "Ave");
+        especieAnimal.put("Kiwi", "Ave");
+        especieAnimal.put("Chispi", "Roedor");
+        especieAnimal.put("Bolita", "Roedor");
+        especieAnimal.put("Manchita", "Roedor");
+
+        estadoAnimal.put("Rocky", "Disponible");
+        estadoAnimal.put("Luna", "Disponible");
+        estadoAnimal.put("Max", "Disponible");
+        estadoAnimal.put("Mishi", "Disponible");
+        estadoAnimal.put("Pelusa", "Disponible");
+        estadoAnimal.put("Tom", "Disponible");
+        estadoAnimal.put("Rocoso", "Disponible");
+        estadoAnimal.put("Piedrín", "Disponible");
+        estadoAnimal.put("Rocky", "Disponible");
+        estadoAnimal.put("Piolín", "Disponible");
+        estadoAnimal.put("Azulito", "Disponible");
+        estadoAnimal.put("Kiwi", "Disponible");
+        estadoAnimal.put("Chispi", "Disponible");
+        estadoAnimal.put("Bolita", "Disponible");
+        estadoAnimal.put("Manchita", "Disponible");
+
     }
 
     public static void mostrarMenu(){
