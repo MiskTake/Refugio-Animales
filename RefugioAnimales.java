@@ -97,7 +97,7 @@ public class RefugioAnimales {
         especies.add("Ave");
         especies.add("Roedor");
 
-        especieAnimal.put("Rocky", "Perro");
+        especieAnimal.put("Firulais", "Perro");
         especieAnimal.put("Luna", "Perro");
         especieAnimal.put("Max", "Perro");
         especieAnimal.put("Mishi", "Gato");
